@@ -1,8 +1,9 @@
 # 🛰️ Unitree LiDAR L1 — ROS2 Humble Setup Guide
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/ROS_logo.svg" alt="ROS2 Logo" width="120"/>
+  <img src="./docs/images/ROS2_logo.png" alt="ROS2 Logo" width="500"/>
 </p>
+
 
 <p align="center">
   <b>Quick setup guide for integrating the Unitree LiDAR L1 with ROS2 Humble on Ubuntu 22.04 LTS.</b>
@@ -90,5 +91,57 @@ You can visualize the LiDAR output using RViz2:
 ```bash
 rviz2 -d src/unitree_lidar_ros2/rviz/view.rviz 
 ```
+In RViz2, you can see the LiDAR output in the "PointCloud2" topic.
 
-![img](./docs/cloud.png)
+
+![img](./docs/images/lidar_unitree_l1.png)
+
+
+
+# 🛰️ Point-LIO — SLAM Guide for Unitree LiDAR L1
+
+Point-LIO is a LiDAR–Inertial SLAM framework that performs direct point-to-map optimization instead of relying on feature extraction. Unlike FAST-LIO, which uses planar features and IKF updates, Point-LIO treats every LiDAR point as a valid measurement for state estimation.
+
+This results in a SLAM system that is:
+
+More accurate in complex or unstructured environments
+
+More robust when planar/edge features are scarce
+
+Better suited for high-resolution LiDAR sensors (e.g., Unitree L1, Ouster, Velodyne)
+
+## 📘 Overview
+This document provides a step-by-step guide to set up and run the **Point-LIO** with **ROS2 Humble** on **Ubuntu 22.04 LTS**.
+
+## Pack Requirements
+- For ROS2 Humble
+```bash
+sudo apt-get install ros-humble-pcl-ros
+sudo apt-get install ros-humble-pcl-conversions
+sudo apt-get install ros-humble-visualization-msgs
+```
+
+- Eigen
+```bash
+sudo apt-get install libeigen3-dev
+```
+
+- Clone the repository and colcon build:
+```bash
+mkdir -p catkin_point_lio_unilidar/src
+cd catkin_point_lio_unilidar/src
+git clone https://github.com/dfloreaa/point_lio_ros2.git
+cd ..
+colcon build --symlink-install
+source install/setup.bash
+```
+
+## Run the Point-LIO
+```bash
+cd ~/catkin_point_lio_unilidar
+source install/setup.bash
+ros2 launch point_lio mapping_unilidar_l1.launch.py
+```
+
+## Results
+![img](./docs/images/lidar_fastLIO.png)
