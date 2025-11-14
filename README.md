@@ -59,4 +59,36 @@ Save and exit the editor: ``Ctrl + O, Enter, Ctrl + X``
 
 Apply the new configuration: ``source ~/.bashrc``
 
+## 🏗️ Step 4 — Create and Build Your First Workspace
 
+Create a new workspace directory (commonly named ros2_ws):
+
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws
+git clone https://github.com/unitree/unitree_lidar_ros2.git
+cd ~/ros2_ws
+```
+
+Use Colcon to build all packages inside your workspace:
+
+```bash
+colcon build --symlink-install
+```
+
+After the build process is complete, source the workspace to make ROS2 recognize the new packages:
+```bash
+source install/setup.bash
+```
+
+Run the following command to start the LiDAR driver:
+```bash
+ros2 launch unitree_lidar_ros2 launch.py
+```
+
+You can visualize the LiDAR output using RViz2:
+```bash
+rviz2 -d src/unitree_lidar_ros2/rviz/view.rviz 
+```
+
+![img](./docs/cloud.png)
