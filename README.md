@@ -145,3 +145,10 @@ ros2 launch point_lio mapping_unilidar_l1.launch.py
 
 ## Results
 ![img](./docs/images/lidar_fastLIO.png)
+
+# REFERENCES
+
+## GITHUB
+- [Unitree LiDAR L1](https://github.com/unitreerobotics/unilidar_sdk)
+- [Point-LIO-ROS2](https://github.com/dfloreaa/point_lio_ros2)
+- [Point-LIO](https://github.com/hku-mars/Point-LIO)
