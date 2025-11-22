@@ -152,3 +152,40 @@ ros2 launch point_lio mapping_unilidar_l1.launch.py
 - [Unitree LiDAR L1](https://github.com/unitreerobotics/unilidar_sdk)
 - [Point-LIO-ROS2](https://github.com/dfloreaa/point_lio_ros2)
 - [Point-LIO](https://github.com/hku-mars/Point-LIO)
+
+
+# How to use ROS2 in WSL (Windows Subsystem for Linux)
+
+## Requirements
+- Because USB in WSL can't detect the USB so you need download some package below here to connect your's USB.
+
+- First, you check your winget version (ver > 1.5)
+```bash
+winget --version
+--> v1.12.350
+```
+- Search Package
+```bash
+winget search usbipd
+--> Name, id, Version match, Source
+--> usbipd-win dorssel.usbipd-win 5.3.0 Moniker: usbipd winget
+```
+- Dowload package
+```bash
+winget install --id dorssel.usbipd-win -e
+```
+
+- After that, you need find your USB and run it on PowerShell(admin) to attach by this follow codes below:
+```bash
+usbipd list
+-->  Silicon Labs CP210x USB to UART Bridge (COM7)
+-->  Integrated Webcam
+-->  Qualcomm QCA9377 Bluetooth
+```
+- Then attach it on WSL and check your USB is it working on Ubuntu or any Linux OS.
+```bash
+usbipd bind --busid [YOUR_BUSID]
+usbipd wsl attach --busid [YOUR_BUSID]
+ls /dev/ttyUSB*
+```
+- After every restart you need to bind (maybe) and attach again for connecting USB, you will run it as well as you go.
